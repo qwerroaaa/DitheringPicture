@@ -65,6 +65,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -81,9 +82,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="img\packs\anime\" />
+    <Folder Include="img\packs\deadInside\" />
     <Folder Include="img\packs\history\" />
-    <Folder Include="img\packs\stars\" />
     <Folder Include="img\test\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\стрелки\левая стрелка.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\стрелки\правая стрелка.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

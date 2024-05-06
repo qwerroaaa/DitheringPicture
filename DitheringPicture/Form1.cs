@@ -47,5 +47,27 @@ namespace DitheringPicture
                 }
             }
         }
+
+        private void ExportPictureBut_Click(object sender, EventArgs e)
+        {
+            // Проверяем, загружено ли изображение в PictureBox
+            if (ExportPictureBox.Image == null)
+            {
+                MessageBox.Show("Изображение не загружено. Невозможно сохранить.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = saveFileDialog.FileName;
+
+                Image image = ExportPictureBox.Image;
+                
+                image.Save(filePath);
+                
+                image.Dispose();
+            }
+        }
     }
 }

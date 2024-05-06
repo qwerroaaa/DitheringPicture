@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.InputPictureBox = new System.Windows.Forms.PictureBox();
             this.ExportPictureBox = new System.Windows.Forms.PictureBox();
             this.LoadPictureBut = new System.Windows.Forms.Button();
@@ -85,6 +86,7 @@
             this.ExportPictureBut.TabIndex = 3;
             this.ExportPictureBut.Text = "Сохранить";
             this.ExportPictureBut.UseVisualStyleBackColor = true;
+            this.ExportPictureBut.Click += new System.EventHandler(this.ExportPictureBut_Click);
             // 
             // DitheringBut
             // 
@@ -138,6 +140,7 @@
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 9;
+            this.textBox1.Text = "Не выбрано";
             // 
             // LevelDitheringBar
             // 
@@ -160,20 +163,25 @@
             // 
             // NextBut
             // 
-            this.NextBut.Location = new System.Drawing.Point(276, 80);
+            this.NextBut.BackColor = System.Drawing.SystemColors.Control;
+            this.NextBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.25F);
+            this.NextBut.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.NextBut.Image = ((System.Drawing.Image)(resources.GetObject("NextBut.Image")));
+            this.NextBut.Location = new System.Drawing.Point(325, 238);
             this.NextBut.Name = "NextBut";
-            this.NextBut.Size = new System.Drawing.Size(84, 23);
+            this.NextBut.Size = new System.Drawing.Size(41, 51);
             this.NextBut.TabIndex = 12;
-            this.NextBut.Text = "Следующая";
             this.NextBut.UseVisualStyleBackColor = true;
             // 
             // PreviousBut
             // 
-            this.PreviousBut.Location = new System.Drawing.Point(186, 80);
+            this.PreviousBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.25F);
+            this.PreviousBut.ForeColor = System.Drawing.SystemColors.Control;
+            this.PreviousBut.Image = global::DitheringPicture.Properties.Resources.левая_стрелка;
+            this.PreviousBut.Location = new System.Drawing.Point(12, 238);
             this.PreviousBut.Name = "PreviousBut";
-            this.PreviousBut.Size = new System.Drawing.Size(84, 23);
+            this.PreviousBut.Size = new System.Drawing.Size(41, 51);
             this.PreviousBut.TabIndex = 13;
-            this.PreviousBut.Text = "Предыдущая";
             this.PreviousBut.UseVisualStyleBackColor = true;
             // 
             // label5
