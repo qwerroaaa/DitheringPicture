@@ -38,13 +38,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.packName = new System.Windows.Forms.TextBox();
             this.LevelDitheringBar = new System.Windows.Forms.TrackBar();
             this.label4 = new System.Windows.Forms.Label();
             this.NextBut = new System.Windows.Forms.Button();
             this.PreviousBut = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.deleteBut = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.InputPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ExportPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LevelDitheringBar)).BeginInit();
@@ -96,6 +97,7 @@
             this.DitheringBut.TabIndex = 4;
             this.DitheringBut.Text = "Задизерить";
             this.DitheringBut.UseVisualStyleBackColor = true;
+            this.DitheringBut.Click += new System.EventHandler(this.DitheringBut_Click);
             // 
             // label1
             // 
@@ -133,14 +135,14 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "Ваш пакет:";
             // 
-            // textBox1
+            // packName
             // 
-            this.textBox1.Location = new System.Drawing.Point(63, 83);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 9;
-            this.textBox1.Text = "Не выбрано";
+            this.packName.Location = new System.Drawing.Point(63, 83);
+            this.packName.Name = "packName";
+            this.packName.ReadOnly = true;
+            this.packName.Size = new System.Drawing.Size(100, 20);
+            this.packName.TabIndex = 9;
+            this.packName.Text = "Не выбрано";
             // 
             // LevelDitheringBar
             // 
@@ -204,18 +206,29 @@
             this.label6.TabIndex = 15;
             this.label6.Text = "Dither";
             // 
+            // deleteBut
+            // 
+            this.deleteBut.Location = new System.Drawing.Point(553, 432);
+            this.deleteBut.Name = "deleteBut";
+            this.deleteBut.Size = new System.Drawing.Size(75, 23);
+            this.deleteBut.TabIndex = 16;
+            this.deleteBut.Text = "Удалить";
+            this.deleteBut.UseVisualStyleBackColor = true;
+            this.deleteBut.Click += new System.EventHandler(this.deleteBut_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(711, 494);
+            this.Controls.Add(this.deleteBut);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.PreviousBut);
             this.Controls.Add(this.NextBut);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.LevelDitheringBar);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.packName);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
@@ -247,13 +260,14 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox packName;
         private System.Windows.Forms.TrackBar LevelDitheringBar;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button NextBut;
         private System.Windows.Forms.Button PreviousBut;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button deleteBut;
     }
 }
 

@@ -120,11 +120,11 @@
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="NextBut.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAC6SURBVGhD7Zk7DsJAEENXAm4CnJgaGiiAQwZbyTZotZRj
-        Iz/JUkq/fKSdTAuhjjNyWi/9uCDLliuyR2zgne/le56IjQRfm28BO4kbYi2xQ+7ISOKNHBB5IqFCJFSI
-        hAqUeCCRqCYSKkRChb+Q4FH7hYwkeES3YCZhMWPPBI6INLPy/Dkgza+PWHoUTfkqUr6KlK8i5atI+SpS
-        vgrr8sR6wTHakdmUJ6MdmdV+jFivWTt8EvIzbAhTWvsAaynx7D2jqakAAAAASUVORK5CYII=
+        iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        EQAACxEBf2RfkQAAALpJREFUaEPtmTsOwkAQQ1cCbgKcmBoaKIBDBlvJNmi1lGMjP8lSSr98pJ1MC6GO
+        M3JaL/24IMuWK7JHbOCd7+V7noiNBF+bbwE7iRtiLbFD7shI4o0cEHkioUIkVIiECpR4IJGoJhIqREKF
+        v5DgUfuFjCR4RLdgJmExY88Ejog0s/L8OSDNr49YehRN+SpSvoqUryLlq0j5KlK+CuvyxHrBMdqR2ZQn
+        ox2Z1X6MWK9ZO3wS8jNsCFNa+wBrKfHsPaOpqQAAAABJRU5ErkJggg==
 </value>
   </data>
 </root>
