@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.InputPictureBox = new System.Windows.Forms.PictureBox();
-            this.ExportPictureBox = new System.Windows.Forms.PictureBox();
             this.LoadPictureBut = new System.Windows.Forms.Button();
             this.ExportPictureBut = new System.Windows.Forms.Button();
             this.DitheringBut = new System.Windows.Forms.Button();
@@ -41,33 +39,17 @@
             this.packName = new System.Windows.Forms.TextBox();
             this.LevelDitheringBar = new System.Windows.Forms.TrackBar();
             this.label4 = new System.Windows.Forms.Label();
-            this.NextBut = new System.Windows.Forms.Button();
-            this.PreviousBut = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.deleteBut = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.InputPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ExportPictureBox)).BeginInit();
+            this.PreviousBut = new System.Windows.Forms.Button();
+            this.NextBut = new System.Windows.Forms.Button();
+            this.ExportPictureBox = new System.Windows.Forms.PictureBox();
+            this.InputPictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.LevelDitheringBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ExportPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InputPictureBox)).BeginInit();
             this.SuspendLayout();
-            // 
-            // InputPictureBox
-            // 
-            this.InputPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.InputPictureBox.Location = new System.Drawing.Point(63, 149);
-            this.InputPictureBox.Name = "InputPictureBox";
-            this.InputPictureBox.Size = new System.Drawing.Size(256, 256);
-            this.InputPictureBox.TabIndex = 0;
-            this.InputPictureBox.TabStop = false;
-            // 
-            // ExportPictureBox
-            // 
-            this.ExportPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ExportPictureBox.Location = new System.Drawing.Point(401, 149);
-            this.ExportPictureBox.Name = "ExportPictureBox";
-            this.ExportPictureBox.Size = new System.Drawing.Size(256, 256);
-            this.ExportPictureBox.TabIndex = 1;
-            this.ExportPictureBox.TabStop = false;
             // 
             // LoadPictureBut
             // 
@@ -125,6 +107,7 @@
             this.button1.TabIndex = 7;
             this.button1.Text = "Выбрать пакет";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label3
             // 
@@ -140,7 +123,7 @@
             this.packName.Location = new System.Drawing.Point(63, 83);
             this.packName.Name = "packName";
             this.packName.ReadOnly = true;
-            this.packName.Size = new System.Drawing.Size(100, 20);
+            this.packName.Size = new System.Drawing.Size(128, 20);
             this.packName.TabIndex = 9;
             this.packName.Text = "Не выбрано";
             // 
@@ -162,29 +145,6 @@
             this.label4.Size = new System.Drawing.Size(91, 13);
             this.label4.TabIndex = 11;
             this.label4.Text = "Сила дизеринга:";
-            // 
-            // NextBut
-            // 
-            this.NextBut.BackColor = System.Drawing.SystemColors.Control;
-            this.NextBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.25F);
-            this.NextBut.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.NextBut.Image = ((System.Drawing.Image)(resources.GetObject("NextBut.Image")));
-            this.NextBut.Location = new System.Drawing.Point(325, 238);
-            this.NextBut.Name = "NextBut";
-            this.NextBut.Size = new System.Drawing.Size(41, 51);
-            this.NextBut.TabIndex = 12;
-            this.NextBut.UseVisualStyleBackColor = true;
-            // 
-            // PreviousBut
-            // 
-            this.PreviousBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.25F);
-            this.PreviousBut.ForeColor = System.Drawing.SystemColors.Control;
-            this.PreviousBut.Image = global::DitheringPicture.Properties.Resources.левая_стрелка;
-            this.PreviousBut.Location = new System.Drawing.Point(12, 238);
-            this.PreviousBut.Name = "PreviousBut";
-            this.PreviousBut.Size = new System.Drawing.Size(41, 51);
-            this.PreviousBut.TabIndex = 13;
-            this.PreviousBut.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
@@ -216,6 +176,49 @@
             this.deleteBut.UseVisualStyleBackColor = true;
             this.deleteBut.Click += new System.EventHandler(this.deleteBut_Click);
             // 
+            // PreviousBut
+            // 
+            this.PreviousBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.25F);
+            this.PreviousBut.ForeColor = System.Drawing.SystemColors.Control;
+            this.PreviousBut.Image = global::DitheringPicture.Properties.Resources.левая_стрелка;
+            this.PreviousBut.Location = new System.Drawing.Point(12, 238);
+            this.PreviousBut.Name = "PreviousBut";
+            this.PreviousBut.Size = new System.Drawing.Size(41, 51);
+            this.PreviousBut.TabIndex = 13;
+            this.PreviousBut.UseVisualStyleBackColor = true;
+            this.PreviousBut.Click += new System.EventHandler(this.PreviousBut_Click);
+            // 
+            // NextBut
+            // 
+            this.NextBut.BackColor = System.Drawing.SystemColors.Control;
+            this.NextBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.25F);
+            this.NextBut.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.NextBut.Image = ((System.Drawing.Image)(resources.GetObject("NextBut.Image")));
+            this.NextBut.Location = new System.Drawing.Point(325, 238);
+            this.NextBut.Name = "NextBut";
+            this.NextBut.Size = new System.Drawing.Size(41, 51);
+            this.NextBut.TabIndex = 12;
+            this.NextBut.UseVisualStyleBackColor = true;
+            this.NextBut.Click += new System.EventHandler(this.NextBut_Click);
+            // 
+            // ExportPictureBox
+            // 
+            this.ExportPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ExportPictureBox.Location = new System.Drawing.Point(401, 149);
+            this.ExportPictureBox.Name = "ExportPictureBox";
+            this.ExportPictureBox.Size = new System.Drawing.Size(256, 256);
+            this.ExportPictureBox.TabIndex = 1;
+            this.ExportPictureBox.TabStop = false;
+            // 
+            // InputPictureBox
+            // 
+            this.InputPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.InputPictureBox.Location = new System.Drawing.Point(63, 149);
+            this.InputPictureBox.Name = "InputPictureBox";
+            this.InputPictureBox.Size = new System.Drawing.Size(256, 256);
+            this.InputPictureBox.TabIndex = 0;
+            this.InputPictureBox.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -241,9 +244,9 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DitheringApp";
-            ((System.ComponentModel.ISupportInitialize)(this.InputPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ExportPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LevelDitheringBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ExportPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InputPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

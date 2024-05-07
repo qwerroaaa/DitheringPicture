@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
@@ -18,6 +19,48 @@ namespace DitheringPicture
             InitializeComponent();
             label4.Text = "Сила дизеринга: 1";
             LevelDitheringBar.Scroll += LevelDitheringBar_Scroll;
+        }
+        private string[] imageFiles;
+        private int currectImageIndex = 0;
+
+        private void DisplayCurrentImage()
+        {
+            if (currectImageIndex >= 0 && currectImageIndex < imageFiles.Length)
+            {
+                Image image = Image.FromFile(imageFiles[currectImageIndex]);
+                InputPictureBox.Image = image;
+            }
+        }
+        private void TakePicPackage(string selectedPackage)
+        {
+            string folderPath = "";
+
+            switch (selectedPackage)
+            {
+                case "Аниме":
+                    folderPath = @"D:\Projects\DitheringPicture\DitheringPicture\DitheringPicture\img\packs\anime\";
+                    break;
+                case "Игры":
+                    folderPath = @"D:\Projects\DitheringPicture\DitheringPicture\DitheringPicture\img\packs\games\";
+                    break;
+                case "Исторические личности":
+                    folderPath = @"D:\Projects\DitheringPicture\DitheringPicture\DitheringPicture\img\packs\history\";
+                    break;
+                case "Не выбрано":
+                    InputPictureBox.Image = null;
+                    return;
+                default:
+                    InputPictureBox.Image = null;
+                    return;
+            }
+
+            imageFiles = Directory.GetFiles(folderPath);
+            
+
+            if(imageFiles.Length > 0 )
+            {
+                DisplayCurrentImage();
+            }
         }
 
         public class FloydSteinbergDithering
@@ -184,6 +227,74 @@ namespace DitheringPicture
         private void deleteBut_Click(object sender, EventArgs e)
         {
             ExportPictureBox.Image = null;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form2 form2 = new Form2();
+            form2.Show();
+            form2.FormClosed += (s, args) =>
+            {
+                string selectedPackage = form2.SelectedPackage;
+                packName.Text = selectedPackage;
+
+                TakePicPackage(selectedPackage);
+            };
+        }
+
+        private void PreviousBut_Click(object sender, EventArgs e)
+        {
+            if (InputPictureBox.Image == null)
+            {
+                MessageBox.Show("Изображение не загружено. Нажмите 'Загрузить'. ", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else
+            {
+                if (packName.Text == "Не выбрано")
+                {
+                     PreviousBut.Enabled = false;
+                } else
+                {
+                    currectImageIndex--;
+
+                    if (currectImageIndex < 0)
+                    {
+                        currectImageIndex = imageFiles.Length - 1;
+                    }
+
+                    DisplayCurrentImage();
+                }
+            }
+        }
+
+        private void NextBut_Click(object sender, EventArgs e)
+        {
+            if (InputPictureBox.Image == null)
+            {
+                MessageBox.Show("Изображение не загружено. Нажмите 'Загрузить'. ", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            } 
+            else
+            {
+                if (packName.Text == "Не выбрано")
+                {
+                    NextBut.Enabled = false;
+                } 
+                else
+                {
+                    NextBut.Enabled = true;
+                    currectImageIndex++;
+
+                    if (currectImageIndex >= imageFiles.Length)
+                    {
+                        currectImageIndex = 0;
+                    }
+
+                    DisplayCurrentImage();
+                }
+                
+            }
         }
     }
 }
