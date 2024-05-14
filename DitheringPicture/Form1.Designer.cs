@@ -46,6 +46,9 @@
             this.NextBut = new System.Windows.Forms.Button();
             this.ExportPictureBox = new System.Windows.Forms.PictureBox();
             this.InputPictureBox = new System.Windows.Forms.PictureBox();
+            this.exitBut = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.LevelDitheringBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ExportPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InputPictureBox)).BeginInit();
@@ -130,11 +133,12 @@
             // LevelDitheringBar
             // 
             this.LevelDitheringBar.Location = new System.Drawing.Point(241, 432);
+            this.LevelDitheringBar.Maximum = 400;
             this.LevelDitheringBar.Minimum = 1;
             this.LevelDitheringBar.Name = "LevelDitheringBar";
             this.LevelDitheringBar.Size = new System.Drawing.Size(202, 45);
             this.LevelDitheringBar.TabIndex = 10;
-            this.LevelDitheringBar.Value = 1;
+            this.LevelDitheringBar.Value = 200;
             this.LevelDitheringBar.Scroll += new System.EventHandler(this.LevelDitheringBar_Scroll);
             // 
             // label4
@@ -160,7 +164,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.25F);
-            this.label6.Location = new System.Drawing.Point(490, 115);
+            this.label6.Location = new System.Drawing.Point(627, 115);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(70, 26);
             this.label6.TabIndex = 15;
@@ -168,7 +172,7 @@
             // 
             // deleteBut
             // 
-            this.deleteBut.Location = new System.Drawing.Point(553, 432);
+            this.deleteBut.Location = new System.Drawing.Point(530, 432);
             this.deleteBut.Name = "deleteBut";
             this.deleteBut.Size = new System.Drawing.Size(75, 23);
             this.deleteBut.TabIndex = 16;
@@ -204,7 +208,7 @@
             // ExportPictureBox
             // 
             this.ExportPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ExportPictureBox.Location = new System.Drawing.Point(401, 149);
+            this.ExportPictureBox.Location = new System.Drawing.Point(530, 149);
             this.ExportPictureBox.Name = "ExportPictureBox";
             this.ExportPictureBox.Size = new System.Drawing.Size(256, 256);
             this.ExportPictureBox.TabIndex = 1;
@@ -219,11 +223,41 @@
             this.InputPictureBox.TabIndex = 0;
             this.InputPictureBox.TabStop = false;
             // 
+            // exitBut
+            // 
+            this.exitBut.Location = new System.Drawing.Point(711, 25);
+            this.exitBut.Name = "exitBut";
+            this.exitBut.Size = new System.Drawing.Size(75, 23);
+            this.exitBut.TabIndex = 17;
+            this.exitBut.Text = "Выйти";
+            this.exitBut.UseVisualStyleBackColor = true;
+            this.exitBut.Click += new System.EventHandler(this.exitBut_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(612, 416);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(103, 13);
+            this.label7.TabIndex = 18;
+            this.label7.Text = "Выберите палитру:";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(615, 432);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(171, 21);
+            this.comboBox1.TabIndex = 19;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(711, 494);
+            this.ClientSize = new System.Drawing.Size(846, 494);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.exitBut);
             this.Controls.Add(this.deleteBut);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -244,6 +278,7 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DitheringApp";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.LevelDitheringBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ExportPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.InputPictureBox)).EndInit();
@@ -271,6 +306,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button deleteBut;
+        private System.Windows.Forms.Button exitBut;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 

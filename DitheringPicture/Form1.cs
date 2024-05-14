@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,22 +18,35 @@ namespace DitheringPicture
         public Form1()
         {
             InitializeComponent();
-            label4.Text = "Сила дизеринга: 1";
+            label4.Text = "Сила дизеринга: 200";
             LevelDitheringBar.Scroll += LevelDitheringBar_Scroll;
+            exitBut.Click += exitBut_Click;
         }
         private string[] imageFiles;
         private int currectImageIndex = 0;
-
+        private ImageReader imageReader;
+        private Dictionary<string, ImageReader> imageReaders = new Dictionary<string, ImageReader>();
         private void DisplayCurrentImage()
         {
             if (currectImageIndex >= 0 && currectImageIndex < imageFiles.Length)
             {
-                Image image = Image.FromFile(imageFiles[currectImageIndex]);
-                InputPictureBox.Image = image;
+                string imagePath = imageFiles[currectImageIndex];
+
+                // Проверяем, есть ли объект ImageReader для данного пути
+                if (!imageReaders.ContainsKey(imagePath))
+                {
+                    // Если нет, создаем новый объект ImageReader
+                    ImageReader reader = new ImageReader(imagePath);
+                    imageReaders.Add(imagePath, reader);
+                }
+
+                // Получаем изображение из объекта ImageReader
+                InputPictureBox.Image = imageReaders[imagePath].GetImage();
             }
         }
         private void TakePicPackage(string selectedPackage)
         {
+            ExportPictureBox.Image = null;
             string folderPath = "";
 
             switch (selectedPackage)
@@ -53,14 +67,52 @@ namespace DitheringPicture
                     InputPictureBox.Image = null;
                     return;
             }
-
+            NextBut.Enabled = true;
+            PreviousBut.Enabled = true;
             imageFiles = Directory.GetFiles(folderPath);
             
 
             if(imageFiles.Length > 0 )
             {
+                currectImageIndex = 0;
                 DisplayCurrentImage();
             }
+        }
+
+        public class ImageReader
+        {
+            private string imagePath;
+            private Image image;
+
+            public ImageReader(string path)
+            {
+                imagePath = path;
+            }
+
+            public Image GetImage()
+            {
+                if (image == null)
+                {
+                    image = Image.FromFile(imagePath);
+                }
+                return image;
+            }
+
+            public void Dispose()
+            {
+                if (image != null)
+                {
+                    image.Dispose();
+                    image = null;
+                }
+            }
+        }
+
+        public class DitherError
+        {
+            public int R { set; get; }
+            public int G { set; get; }
+            public int B { set; get; }
         }
 
         public class FloydSteinbergDithering
@@ -68,24 +120,52 @@ namespace DitheringPicture
             public static Bitmap ApplyDithering(Bitmap originalImage, int strength, Color[] palette)
             {
                 Bitmap ditheredImage = new Bitmap(originalImage.Width, originalImage.Height);
-                for (int y =  0; y < originalImage.Height; y++)
+                DitherError[,] errorMatrix = new DitherError[originalImage.Width + 2, originalImage.Height + 1];
+                for (int y = 0; y < originalImage.Height + 1; y++)
+                {
+                    for (int x = 0; x < originalImage.Width + 2; x++)
+                    {
+                        errorMatrix[x, y] = new DitherError();
+                    }
+                }
+
+                for (int y = 0; y < originalImage.Height; y++)
                 {
                     for (int x = 0; x < originalImage.Width; x++)
                     {
                         Color oldColor = originalImage.GetPixel(x, y);
-                        Color newColor = CalculateClosestColor(oldColor, palette);
 
+                        // Вычисление новых значений пикселя
+                        int newR = ClipByte(oldColor.R + (errorMatrix[x + 1, y].R * strength / 16) / 255);
+                        int newG = ClipByte(oldColor.G + (errorMatrix[x + 1, y].G * strength / 16) / 255);
+                        int newB = ClipByte(oldColor.B + (errorMatrix[x + 1, y].B * strength / 16) / 255);
+
+                        Color newColor = CalculateClosestColor(Color.FromArgb(newR, newG, newB), palette);
                         ditheredImage.SetPixel(x, y, newColor);
-
                         //Вычисление ошибок дизеринга
                         int errorR = oldColor.R - newColor.R;
                         int errorG = oldColor.G - newColor.G;
                         int errorB = oldColor.B - newColor.B;
 
-                        SpreadError(originalImage, x, y, errorR, errorG, errorB, strength);   
+                        //[                *    7/16    ...]    
+                        //[ ... 3/16    5/16    1/16    ...]
+                        errorMatrix[x + 2, y].R += errorR * 7;
+                        errorMatrix[x + 2, y].G += errorG * 7;
+                        errorMatrix[x + 2, y].B += errorB * 7;
+
+                        errorMatrix[x, y + 1].R += errorR * 3;
+                        errorMatrix[x, y + 1].G += errorG * 3;
+                        errorMatrix[x, y + 1].B += errorB * 3;
+
+                        errorMatrix[x + 1, y + 1].R += errorR * 5;
+                        errorMatrix[x + 1, y + 1].G += errorG * 5;
+                        errorMatrix[x + 1, y + 1].B += errorB * 5;
+
+                        errorMatrix[x + 2, y + 1].R += errorR * 1;
+                        errorMatrix[x + 2, y + 1].G += errorG * 1;
+                        errorMatrix[x + 2, y + 1].B += errorB * 1;
                     }
                 }
-
                 return ditheredImage;
             }
 
@@ -95,7 +175,7 @@ namespace DitheringPicture
                 double gDiff = color1.G - color2.G;
                 double bDiff = color1.B - color2.B;
 
-                return Math.Sqrt(rDiff * rDiff + gDiff * gDiff + bDiff * bDiff);
+                return rDiff * rDiff + gDiff * gDiff + bDiff * bDiff;
             }
 
             private static Color CalculateClosestColor(Color color, Color[] palette)
@@ -115,36 +195,14 @@ namespace DitheringPicture
 
                 return closestColor;
             }
-
-            private static void SpreadError(Bitmap image, int x, int y, int errorR, int errorG, int errorB, int strength)
-            {
-                double[] coefficients = {7.0 / 16.0, 3.0 / 16.0, 5.0 / 16.0, 1.0 / 16.0 };
-
-                for (int i = 0; i < 4; i++)
-                {
-                    int nx = x + (i % 2 == 0 ? 1 : -1);
-                    int ny = y + (i < 2 ? 1 : -1);
-
-                    // Проверяем, находимся ли мы в пределах изображения
-                    if (nx >= 0 && nx < image.Width && ny >= 0 && ny < image.Height)
-                    {
-                        Color oldColor = image.GetPixel(nx, ny);
-                        int newR = (int)(oldColor.R + errorR * coefficients[i] * strength);
-                        int newG = (int)(oldColor.G + errorG * coefficients[i] * strength);
-                        int newB = (int)(oldColor.B + errorB * coefficients[i] * strength);
-
-                        // Ограничиваем значения в диапазоне 0-255
-                        newR = Math.Max(0, Math.Min(255, newR));
-                        newG = Math.Max(0, Math.Min(255, newG));
-                        newB = Math.Max(0, Math.Min(255, newB));
-
-                        Color newColor = Color.FromArgb(newR, newG, newB);
-                        image.SetPixel(nx, ny, newColor);
-                    }
-                }
-            }
         }
 
+       private static int ClipByte(int Value)
+       {
+            if (Value > 255) return 255;
+            else if (Value < 0) return 0;
+            else return Value;
+       }
 
         private void LevelDitheringBar_Scroll(object sender, EventArgs e)
         {
@@ -295,6 +353,26 @@ namespace DitheringPicture
                 }
                 
             }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            foreach (var reader in imageReaders.Values)
+            {
+                reader.Dispose();
+            }
+            imageReaders.Clear();
+        }
+
+        private void exitBut_Click(object sender, EventArgs e)
+        {
+            foreach (var reader in imageReaders.Values)
+            {
+                reader.Dispose();
+            }
+            imageReaders.Clear();
+
+            Application.Exit();
         }
     }
 }
