@@ -48,7 +48,7 @@
             this.InputPictureBox = new System.Windows.Forms.PictureBox();
             this.exitBut = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.ColorComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.LevelDitheringBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ExportPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InputPictureBox)).BeginInit();
@@ -242,20 +242,22 @@
             this.label7.TabIndex = 18;
             this.label7.Text = "Выберите палитру:";
             // 
-            // comboBox1
+            // ColorComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(615, 432);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(171, 21);
-            this.comboBox1.TabIndex = 19;
+            this.ColorComboBox.FormattingEnabled = true;
+            this.ColorComboBox.Location = new System.Drawing.Point(615, 432);
+            this.ColorComboBox.Name = "ColorComboBox";
+            this.ColorComboBox.Size = new System.Drawing.Size(171, 21);
+            this.ColorComboBox.TabIndex = 19;
+            this.ColorComboBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ColorComboBox_DrawItem);
+            this.ColorComboBox.SelectedIndexChanged += new System.EventHandler(this.ColorComboBox_SelectedIndexChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(846, 494);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.ColorComboBox);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.exitBut);
             this.Controls.Add(this.deleteBut);
@@ -308,7 +310,7 @@
         private System.Windows.Forms.Button deleteBut;
         private System.Windows.Forms.Button exitBut;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox ColorComboBox;
     }
 }
 

@@ -21,10 +21,18 @@ namespace DitheringPicture
             label4.Text = "Сила дизеринга: 200";
             LevelDitheringBar.Scroll += LevelDitheringBar_Scroll;
             exitBut.Click += exitBut_Click;
+            ColorComboBox.Items.Add("Monochrome");
+            ColorComboBox.Items.Add("Purple Energy");
+            ColorComboBox.Items.Add("Neon roses");
+            ColorComboBox.Items.Add("Emmanuel Lions");
+            ColorComboBox.Items.Add("Light magic");
+            ColorComboBox.Items.Add("Solar Eclipse");
+            ColorComboBox.SelectedIndex = 5;
         }
         private string[] imageFiles;
         private int currectImageIndex = 0;
         private ImageReader imageReader;
+        private Color[] palette;
         private Dictionary<string, ImageReader> imageReaders = new Dictionary<string, ImageReader>();
         private void DisplayCurrentImage()
         {
@@ -256,13 +264,69 @@ namespace DitheringPicture
             }
         }
 
-        private Color[] palette = new Color[]
+        private Color[] GetSelectedColorPalette(string selectedPalette)
         {
-            Color.FromArgb(255, 252, 254),
-            Color.FromArgb(255, 194, 0),
-            Color.FromArgb(255, 42, 0),
-            Color.FromArgb(255, 17, 7, 10)
-        };
+            switch (selectedPalette)
+            {
+                case "Monochrome":
+                    return new Color[]
+                    {
+                Color.FromArgb(255, 255, 255),
+                Color.FromArgb(192, 192, 192),
+                Color.FromArgb(128, 128, 128),
+                Color.FromArgb(64, 64, 64),
+                Color.FromArgb(0, 0, 0)
+                    };
+                case "Purple Energy":
+                    return new Color[]
+                    {
+                Color.FromArgb(218, 189, 238),
+                Color.FromArgb(211, 168, 240),
+                Color.FromArgb(198, 148, 232),
+                Color.FromArgb(177, 150, 185),
+                Color.FromArgb(208, 138, 231)
+                    };
+
+                case "Neon roses":
+                    return new Color[]
+                    {
+                Color.FromArgb(154,253,255),
+                Color.FromArgb(255,56,205),
+                Color.FromArgb(255,124,213),
+                Color.FromArgb(255,184,210),
+                Color.FromArgb(255,219,223)
+                    };
+                case "Emmanuel Lions":
+                    return new Color[]
+                    {
+                Color.FromArgb(19,46,82),
+                Color.FromArgb(253,185,23),
+                Color.FromArgb(152,0,46),
+                Color.FromArgb(255,255,255),
+                Color.FromArgb(0,0,0)
+                    };
+                case "Solar Eclipse":
+                    return new Color[]
+                    {
+                Color.FromArgb(252, 254, 254),
+                Color.FromArgb(194, 0, 0),
+                Color.FromArgb(42, 0, 0),
+                Color.FromArgb(17, 7, 10)
+                    };
+                case "Light magic":
+                    return new Color[]
+                    {
+                Color.FromArgb(216,237,254),
+                Color.FromArgb(172,189,203),
+                Color.FromArgb(138,163,186),
+                Color.FromArgb(249,213,103),
+                Color.FromArgb(196,176,116)
+                    };
+                default:
+                    return new Color[0];
+            }
+        }
+
 
         private void DitheringBut_Click(object sender, EventArgs e)
         {
@@ -374,5 +438,17 @@ namespace DitheringPicture
 
             Application.Exit();
         }
+
+        private void ColorComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ExportPictureBox.Image = null;
+            string selectedPalette = ColorComboBox.SelectedItem.ToString();
+            palette = GetSelectedColorPalette(selectedPalette);
+        }
+
+        private void ColorComboBox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            
+        } 
     }
 }
